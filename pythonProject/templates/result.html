@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Facilidade de Leitura de Flesch</title>
+    <!-- Importando a biblioteca de ícones do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #00CED1 40%, #20B2AA 100%);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1, h2 {
+            color: lightblue;
+            font-family: 'Didot', serif;
+            text-align: center;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+
+        .content-container {
+            display: flex;
+            align-items: flex-start; /* Alinha o conteúdo no topo */
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .result-box {
+            padding: 20px;
+            background-color: white;
+            color: #00CED1;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 1.5em;
+            text-align: center;
+            max-width: 400px;
+            margin-right: 20px; /* Espaço entre a caixa de resultado e a tabela */
+        }
+
+        .score-table {
+            background-color: white;
+            color: #00CED1;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 1em;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        .score-table th, .score-table td {
+            border: 1px solid #00CED1;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .score-table th {
+            background-color: #00CED1;
+            color: white;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: white;
+            color: #00CED1;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: #e0ffff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-btn i {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+
+        /* Símbolos matemáticos nas bordas */
+        .math-symbols {
+            position: absolute;
+            font-size: 2.5em;
+            color: rgba(255, 255, 255, 0.3);
+            z-index: -1;
+        }
+
+        /* Pseudo-elementos para preencher as bordas com símbolos matemáticos */
+        .math-symbols::before, .math-symbols::after {
+            content: "+ ÷ × = + ÷ × = + ÷ × = + ÷ × = + ÷ × = + ÷ × = ";
+            display: block;
+            position: absolute;
+            white-space: nowrap;
+            font-size: 2.5em;
+        }
+
+        /* Posicionamento dos símbolos */
+        .math-symbols.top {
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .math-symbols.top::before {
+            top: 0;
+            left: 0;
+        }
+
+        .math-symbols.bottom {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .math-symbols.bottom::after {
+            bottom: 0;
+            left: 0;
+        }
+
+        .math-symbols.left {
+            top: 0;
+            left: 0;
+            height: 100%;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .math-symbols.left::before {
+            top: 0;
+            left: 0;
+        }
+
+        .math-symbols.right {
+            top: 0;
+            right: 0;
+            height: 100%;
+            writing-mode: vertical-rl;
+        }
+
+        .math-symbols.right::after {
+            top: 0;
+            right: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Resultado da Facilidade de Leitura de Flesch</h1>
+
+    <div class="content-container">
+        <div class="result-box">
+            <!-- Espaço para exibir o resultado -->
+            <h2>Sua pontuação de Flesch: {{ pontuacao_flesch }}</h2>
+        </div>
+
+        <table class="score-table">
+            <tr>
+                <th>Valor do Índice</th>
+                <th>Leitura do Texto</th>
+                <th>Grau de Escolaridade</th>
+            </tr>
+            <tr>
+                <td>90-100</td>
+                <td>Muito Fácil</td>
+                <td>1° - 5° Ano</td>
+            </tr>
+            <tr>
+                <td>80-90</td>
+                <td>Fácil</td>
+                <td>6° Ano</td>
+            </tr>
+            <tr>
+                <td>70-80</td>
+                <td>Razoavelmente Fácil</td>
+                <td>7° Ano</td>
+            </tr>
+            <tr>
+                <td>60-70</td>
+                <td>Médio</td>
+                <td>8° - 9° Ano</td>
+            </tr>
+            <tr>
+                <td>50-60</td>
+                <td>Razoavelmente Difícil</td>
+                <td>Ensino Médio</td>
+            </tr>
+            <tr>
+                <td>30-50</td>
+                <td>Difícil</td>
+                <td>Universitário</td>
+            </tr>
+            <tr>
+                <td>0-30</td>
+                <td>Alta Complexidade</td>
+                <td>Acadêmico Formado</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Botão para voltar à página inicial -->
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+
+    <!-- Símbolos matemáticos ao longo das bordas -->
+    <div class="math-symbols top"></div>
+    <div class="math-symbols bottom"></div>
+    <div class="math-symbols left"></div>
+    <div class="math-symbols right"></div>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Facilidade de Leitura de Flesch</title>
+    <!-- Importando a biblioteca de ícones do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #00CED1 40%, #20B2AA 100%);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            color: white;
+            font-family: 'Didot', serif;
+            font-size: 3em;
+            text-align: center;
+            margin: 0;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+        .logo-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .logo-container:hover .logo {
+            transform: scale(1.1);
+        }
+        .logo i {
+            font-size: 4em;
+            color: #00CED1;
+        }
+        .upload-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: white;
+            color: #00CED1;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .upload-btn:hover {
+            background-color: #e0ffff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .upload-btn i {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+
+        /* Símbolos matemáticos nas bordas */
+        .math-symbols {
+            position: absolute;
+            font-size: 2.5em;
+            color: rgba(255, 255, 255, 0.3);
+            z-index: -1;
+        }
+
+        /* Pseudo-elementos para preencher as bordas com símbolos matemáticos */
+        .math-symbols::before, .math-symbols::after {
+            content: "+ ÷ × = + ÷ × = + ÷ × = + ÷ × = + ÷ × = + ÷ × = ";
+            display: block;
+            position: absolute;
+            white-space: nowrap;
+            font-size: 2.5em;
+        }
+
+        /* Posicionamento dos símbolos */
+        .math-symbols.top {
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .math-symbols.top::before {
+            top: 0;
+            left: 0;
+        }
+
+        .math-symbols.bottom {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .math-symbols.bottom::after {
+            bottom: 0;
+            left: 0;
+        }
+
+        .math-symbols.left {
+            top: 0;
+            left: 0;
+            height: 100%;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+        .math-symbols.left::before {
+            top: 0;
+            left: 0;
+        }
+
+        .math-symbols.right {
+            top: 0;
+            right: 0;
+            height: 100%;
+            writing-mode: vertical-rl;
+        }
+        .math-symbols.right::after {
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Facilidade de Leitura de Flesch</h1>
+
+    <div class="logo-container">
+        <!-- Espaço para a logomarca com ícone -->
+        <div class="logo">
+            <i class="fas fa-book-open"></i> <!-- Ícone de livro aberto -->
+        </div>
+    </div>
+
+    <div>
+        <!-- Formulário para upload de PDF -->
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label class="upload-btn">
+                <i class="fas fa-file-pdf"></i> Escolher PDF
+                <input type="file" name="file" accept="application/pdf" style="display:none;">
+            </label>
+            <input type="submit" value="Analisar" class="upload-btn">
+        </form>
+    </div>
+
+    <!-- Símbolos matemáticos ao longo das bordas -->
+    <div class="math-symbols top"></div>
+    <div class="math-symbols bottom"></div>
+    <div class="math-symbols left"></div>
+    <div class="math-symbols right"></div>
+
+</body>
+</html>
